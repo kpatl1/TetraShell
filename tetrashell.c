@@ -40,7 +40,7 @@ int main(int argc, char** argv){
 
     struct winsize ws;
 
-    // Get the terminal window size
+    //K.P: Get the terminal window size
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1) {
         perror("ioctl");
         return 1;
@@ -106,7 +106,7 @@ int main(int argc, char** argv){
 
 
 
-    //TH: begin accepting input
+    //K.P: begin accepting input
     printf("Enter your command below to get started: \n");
     while(true){
         char *tokens[MAX_LINE_LENGTH] = {0};
@@ -148,13 +148,13 @@ int main(int argc, char** argv){
         //TH: Append tokens[] with a NULL pointer
         tokens[tokenCount] = NULL;
 
-        //TH: EXIT ----------------------------------------------
+        //K.P: EXIT ----------------------------------------------
         //TH: First check if user wants to exit the program
         if(inputCheck("exit", tokens[0])){
             exit(1);
         }
 
-        //TH: RECOVER -------------------------------------------
+        //K.P: RECOVER -------------------------------------------
         int st;
         //TH: For easiest inputCheck impl, if first letter of input is r, need to differentiate between rank and recover
         if (tokens[0][0]=='r' && inputCheck("ecover", &tokens[0][1])) {
@@ -305,7 +305,7 @@ int main(int argc, char** argv){
                 }
         }
 
-        //TH: HELP -------------------------------------------
+        //K.P: HELP -------------------------------------------
         if(inputCheck("help", tokens[0])) {
             if(tokens[1] != NULL){
                 if(inputCheck("check", tokens[1])) {
@@ -355,7 +355,7 @@ int main(int argc, char** argv){
             }
         }
 
-        //TH: SWITCH ------------------------------------------------
+        //K.P: SWITCH ------------------------------------------------
         if(inputCheck("switch", tokens[0])){
             if(tokenCount != 2){
                 fprintf(stderr, "Please enter new quicksave path.\n");
@@ -378,7 +378,7 @@ int main(int argc, char** argv){
             }
         }
         
-        //TH: CHECK ---------------------------------------------------
+        //K.P: CHECK ---------------------------------------------------
         if(inputCheck("check", tokens[0])){
             pid_t pid = fork();
             if (pid < 0) {
@@ -400,7 +400,7 @@ int main(int argc, char** argv){
             }
         }
 
-        //TH: MODIFY ---------------------------------------
+        //K.P: MODIFY ---------------------------------------
         if(inputCheck("modify", tokens[0])){
             pid_t pid = fork();
             if (pid < 0) {
@@ -652,7 +652,7 @@ int main(int argc, char** argv){
     free(userInput);
 }
 
-
+//K.P: Print Title 
 void print_title(int num_spaces) {
     if (strcmp(getenv("TERM"), "xterm-256color") == 0) {
         printf("\033[34m");
@@ -878,7 +878,7 @@ void printRank(int rankNum, char* fileName, char isBold) {
     }
 }
 
-
+//K.P: Train
 void train() {
     bool isFinished = false;
     srand(time(NULL));
